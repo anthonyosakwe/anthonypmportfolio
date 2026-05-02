@@ -18,15 +18,72 @@
       --card:    #0b1629;
     }
 
+    html[data-theme="light"] {
+      --bg:      #fafbfc;
+      --surface: #ffffff;
+      --border:  #e0e5ec;
+      --accent:  #00a878;
+      --accent2: #0284c7;
+      --text:    #1a2332;
+      --muted:   #6b7280;
+      --card:    #ffffff;
+    }
+
+    html[data-theme="light"] body::before {
+      background-image:
+        linear-gradient(rgba(0,168,120,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,168,120,0.04) 1px, transparent 1px);
+    }
+
+    html[data-theme="light"] nav {
+      background: rgba(255,255,255,0.95);
+    }
+
+    html[data-theme="light"] .glow-a,
+    html[data-theme="light"] .glow-b {
+      opacity: 0.08;
+    }
+
+    html[data-theme="light"] .btn-primary {
+      color: #ffffff;
+      background: var(--accent);
+    }
+
+    html[data-theme="light"] .form-input,
+    html[data-theme="light"] .form-textarea {
+      background: #ffffff;
+    }
+
+    html[data-theme="light"] .outcome-card,
+    html[data-theme="light"] .credential-card,
+    html[data-theme="light"] .skill-category {
+      background: rgba(255,255,255,0.6);
+    }
+
+    html[data-theme="light"] .exp-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+    }
+
+    html[data-theme="dark"] {
+      --bg:      #050c18;
+      --surface: #0b1629;
+      --border:  #1a2e4a;
+      --accent:  #00d4aa;
+      --accent2: #0ea5e9;
+      --text:    #e8f0f8;
+      --muted:   #6b8aaa;
+      --card:    #0b1629;
+    }
+
     @media (prefers-color-scheme: light) {
-      html[data-theme="light"] {
-        --bg:      #ffffff;
-        --surface: #f5f5f5;
-        --border:  #e0e0e0;
+      html:not([data-theme]) {
+        --bg:      #fafbfc;
+        --surface: #ffffff;
+        --border:  #e0e5ec;
         --accent:  #00a878;
         --accent2: #0284c7;
-        --text:    #1a1a1a;
-        --muted:   #666666;
+        --text:    #1a2332;
+        --muted:   #6b7280;
         --card:    #ffffff;
       }
     }
@@ -139,7 +196,12 @@
       width:100%;
     }
 
-    .hero-content { opacity:0; animation:fadeIn 1s ease 0.2s forwards; }
+    .hero-content { opacity:1; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .hero-status {
       display: inline-flex;
@@ -493,6 +555,95 @@
       background: rgba(0,212,170,0.1);
       transform: translateY(-4px);
       box-shadow: 0 12px 32px rgba(0,212,170,0.15);
+    }
+
+    .project-card a:hover .project-title {
+      color: var(--accent);
+    }
+
+    .project-link-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      transition: all 0.3s;
+      background: rgba(0,212,170,0.05);
+    }
+
+    .project-link-arrow:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,170,0.15);
+      transform: scale(1.1);
+    }
+
+    /* PHILOSOPHY QUOTE SECTION */
+    .philosophy-section {
+      max-width: 900px;
+      margin: 60px auto 80px;
+      padding: 40px 24px;
+    }
+
+    .philosophy-card {
+      padding: 48px 40px;
+      background: rgba(0,212,170,0.05);
+      border: 1px solid rgba(0,212,170,0.2);
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+    }
+
+    .philosophy-card::before {
+      content: '"';
+      position: absolute;
+      top: 12px;
+      left: 24px;
+      font-size: 60px;
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1;
+      opacity: 0.5;
+    }
+
+    .philosophy-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .philosophy-quote em {
+      color: var(--accent);
+    }
+
+    .philosophy-author {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .philosophy-card { padding: 32px 24px; }
+      .philosophy-quote { font-size: 18px; }
     }
 
     .project-icon {
@@ -916,6 +1067,17 @@
       </div>
     </section>
 
+    <!-- MY PHILOSOPHY -->
+    <section class="philosophy-section">
+      <div class="philosophy-card">
+        <span class="philosophy-label">My Philosophy</span>
+        <p class="philosophy-quote">
+          I believe health systems should work <em>for</em> patients and clinicians — not against them. Every product I build starts at the bedside, where the gap between <em>how things are</em> and <em>how they should be</em> becomes painfully clear.
+        </p>
+        <div class="philosophy-author">— Dr. Anthony O. Osakwe</div>
+      </div>
+    </section>
+
     <!-- MEASURED OUTCOMES -->
     <section id="impact">
       <span class="section-label">Measured Outcomes</span>
@@ -1105,7 +1267,10 @@
 
       <div class="projects-grid">
         <div class="project-card">
-          <div class="project-icon">📚</div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div class="project-icon">📚</div>
+            <a href="https://github.com/anthonyosakwe/medopslov" target="_blank" class="project-link-arrow" title="View MedOpsLov">↗</a>
+          </div>
           <h3 class="project-title">MedOpsLov</h3>
           <span class="project-label">Problem</span>
           <p class="project-problem">Medical professionals lack structured, efficient systems for intensive study and certification preparation.</p>
@@ -1132,7 +1297,10 @@
         </div>
 
         <div class="project-card">
-          <div class="project-icon">⚙️</div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div class="project-icon">⚙️</div>
+            <a href="https://github.com/anthonyosakwe/medops-command" target="_blank" class="project-link-arrow" title="View MedOps Command">↗</a>
+          </div>
           <h3 class="project-title">MedOps Command</h3>
           <span class="project-label">Problem</span>
           <p class="project-problem">No centralised system exists for managing medical operations, study planning, and execution workflows in high-pressure clinical environments.</p>
@@ -1159,7 +1327,10 @@
         </div>
 
         <div class="project-card">
-          <div class="project-icon">🚨</div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div class="project-icon">🚨</div>
+            <a href="https://anthonyosakwe.github.io/safesignalapp/" target="_blank" class="project-link-arrow" title="View SafeSignal Live">↗</a>
+          </div>
           <h3 class="project-title">SafeSignal</h3>
           <span class="project-label">Problem</span>
           <p class="project-problem">Healthcare facilities lack real-time patient safety incident reporting and tracking systems aligned with clinical workflow.</p>
