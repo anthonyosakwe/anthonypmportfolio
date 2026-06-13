@@ -60,10 +60,6 @@
       background: rgba(255,255,255,0.6);
     }
 
-    html[data-theme="light"] .exp-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
-    }
-
     html[data-theme="dark"] {
       --bg:      #050c18;
       --surface: #0b1629;
@@ -540,57 +536,98 @@
       font-weight: 600;
     }
 
-    /* EXPERIENCE */
-    .experience-grid {
-      display: grid;
-      gap: 32px;
+    /* CAREER TIMELINE */
+    .career-timeline {
+      position: relative;
+      max-width: 820px;
+      margin: 0 auto;
+      padding-left: 32px;
     }
 
-    .exp-card {
-      padding: 32px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: linear-gradient(135deg, rgba(11,22,41,0.5), rgba(11,22,41,0.8));
-      transition: all 0.3s;
+    .career-timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border);
     }
 
-    .exp-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
+    .timeline-item {
+      position: relative;
+      padding-bottom: 40px;
     }
 
-    .exp-role {
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--card);
+    }
+
+    .timeline-year {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 8px;
     }
 
-    .exp-company {
+    .timeline-role {
       font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .exp-tenure {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-
-    .exp-desc {
-      font-size: 14px;
-      line-height: 1.6;
+      font-weight: 700;
       color: var(--text);
-      margin-bottom: 12px;
+      margin-right: 10px;
     }
 
-    .exp-highlights {
+    .timeline-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+
+    .timeline-badge.clinical { background: rgba(0,212,170,0.15); color: var(--accent); border: 1px solid rgba(0,212,170,0.3); }
+    .timeline-badge.quality { background: rgba(14,165,233,0.15); color: var(--accent2); border: 1px solid rgba(14,165,233,0.3); }
+    .timeline-badge.programme { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+    .timeline-badge.leadership { background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); }
+    .timeline-badge.research { background: rgba(236,72,153,0.15); color: #ec4899; border: 1px solid rgba(236,72,153,0.3); }
+    .timeline-badge.building { background: rgba(0,212,170,0.15); color: var(--accent); border: 1px solid rgba(0,212,170,0.3); }
+
+    .timeline-company {
       font-size: 13px;
       color: var(--muted);
+      margin: 4px 0 12px;
+    }
+
+    .timeline-bullets {
+      font-size: 13px;
       line-height: 1.8;
+      color: var(--text);
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .timeline-bullets li {
+      margin-bottom: 6px;
+    }
+
+    .timeline-bullets strong {
+      color: var(--accent);
     }
 
     /* PROJECTS */
@@ -1463,70 +1500,111 @@
       </div>
     </section>
 
-    <!-- EXPERIENCE -->
+    <!-- EXPERIENCE / CAREER TIMELINE -->
     <section id="experience">
-      <span class="section-label">Background</span>
+      <span class="section-label">Career Timeline</span>
       <h2 class="section-title">The path that built my <strong>product instincts</strong></h2>
 
-      <div class="experience-grid">
-        <div class="exp-card">
-          <div class="exp-role">🏥 Hospital CEO/Strategic Clinical Lead & Managing Partner</div>
-          <div class="exp-company">ABC Specialist Hospital Limited (Building)</div>
-          <div class="exp-tenure">2026 - In Progress · Abuja</div>
-          <div class="exp-desc">Leading the development of a specialist hospital with modern operations, clinical excellence, and digital-first workflows. Designing healthcare delivery models for resource-constrained environments.</div>
-          <div class="exp-highlights">
-            • Healthcare business model development<br>
-            • Clinical governance & quality frameworks<br>
-            • Digital health infrastructure planning
-          </div>
+      <div class="career-timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2026 – In Progress</div>
+          <span class="timeline-role">Hospital CEO/Strategic Clinical Lead & Managing Partner</span>
+          <span class="timeline-badge building">Building</span>
+          <div class="timeline-company">ABC Specialist Hospital Limited · Abuja</div>
+          <ul class="timeline-bullets">
+            <li>Leading the development of a specialist hospital with modern operations, clinical excellence, and digital-first workflows</li>
+            <li><strong>Healthcare business model development</strong></li>
+            <li>Clinical governance & quality frameworks</li>
+            <li>Digital health infrastructure planning</li>
+          </ul>
         </div>
 
-        <div class="exp-card">
-          <div class="exp-role">💼 Clinical Product Manager || Medical Officer</div>
-          <div class="exp-company">Muhammadu Buhari Police Hospital</div>
-          <div class="exp-tenure">2023 - Present · Abuja</div>
-          <div class="exp-desc">Driving digital transformation and clinical product development for a 30+ bed secondary level healthcare facility.</div>
-          <div class="exp-highlights">
-            • Product roadmap & feature prioritization<br>
-            • Stakeholder alignment across departments<br>
-            • Clinical workflow optimization
-          </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2023 – Present</div>
+          <span class="timeline-role">Clinical Product Manager || Medical Officer</span>
+          <span class="timeline-badge clinical">Clinical</span>
+          <div class="timeline-company">Muhammadu Buhari Police Hospital · Garki, Abuja</div>
+          <ul class="timeline-bullets">
+            <li>Driving digital transformation and clinical product development for a 30+ bed secondary level healthcare facility</li>
+            <li>Managed multi-department <strong>outpatient and inpatient workflows</strong> unsupervised across GOPD, A&E, ANC, OBGYN, and Paediatric OPD</li>
+            <li>Designed and submitted a <strong>Solar Electrification Proposal</strong> to the Rural Electrification Agency (REA) — demonstrating end-to-end project ideation, problem definition, and cross-agency stakeholder communication</li>
+            <li>Product roadmap & feature prioritization, with stakeholder alignment across departments</li>
+          </ul>
         </div>
 
-        <div class="exp-card">
-          <div class="exp-role">🔬 Emergency Medicine || GP Medical Officer || Physician-in-Training</div>
-          <div class="exp-company">Lagos University Teaching Hospital</div>
-          <div class="exp-tenure">2012 - 2015 · Lagos</div>
-          <div class="exp-desc">Clinical care, research, and systems improvement in a high-volume tertiary emergency department.</div>
-          <div class="exp-highlights">
-            • Patient safety & quality metrics<br>
-            • Team leadership & training<br>
-            • Protocol development & standardization
-          </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2021 – 2022</div>
+          <span class="timeline-role">Lead Clinician · Clinical Quality Assurance Focal Person</span>
+          <span class="timeline-badge quality">Quality & Data</span>
+          <div class="timeline-company">Heartland Alliance LTD/GTE · Agege, Lagos (USAID-funded)</div>
+          <ul class="timeline-bullets">
+            <li>Used <strong>data analysis (Excel + RADET)</strong> to drive biometric capture performance from 30% → 70% in 4 months — a 133% improvement</li>
+            <li>Maintained <strong>98%+ ART Client Retention</strong> benchmarked by USAID Nigeria through strategic scheduling, proactive tracking, and client engagement frameworks</li>
+            <li>Represented the organisation in <strong>National Technical Working Groups</strong>, contributing to Nigeria's National PrEP Tool (NASCP/FMOH, 2021) and AHD Intervention Roll-out (FMOH/APIN, 2021)</li>
+            <li>Designed and delivered instructional capacity-building materials for clinical and programme staff using Bloom's Taxonomy and adult learning principles</li>
+          </ul>
         </div>
 
-        <div class="exp-card">
-          <div class="exp-role">📊 Lead Clinician · Clinical Quality Assurance Focal Person</div>
-          <div class="exp-company">Heartland Alliance LTD/GTE, Agege, Lagos (USAID-funded)</div>
-          <div class="exp-tenure">2021 — 2022 · Lagos</div>
-          <div class="exp-desc">Used data analysis to drive biometric capture performance from 30% → 70% in 4 months. Maintained 98%+ ART Client Retention benchmarked by USAID Nigeria.</div>
-          <div class="exp-highlights">
-            • Advanced Excel/RADET data analysis<br>
-            • Represented in National Technical Working Groups (PrEP Tool, AHD Intervention)<br>
-            • Designed instructional capacity-building materials
-          </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2019 – 2021</div>
+          <span class="timeline-role">Zonal CART Clinician</span>
+          <span class="timeline-badge programme">Programme</span>
+          <div class="timeline-company">Heartland Alliance LTD/GTE · Ojo & Badagry, Lagos</div>
+          <ul class="timeline-bullets">
+            <li>Designed <strong>innovative operational strategies</strong> that improved ART Retention, eHR adoption, and client tracking across two zones — including communities accessible only by waterway</li>
+            <li>Designed <strong>SOPs, job aids, and clinical guidelines</strong> aligned with National and International best practices, translating policy into actionable solutions</li>
+          </ul>
         </div>
 
-        <div class="exp-card">
-          <div class="exp-role">🩺 Zonal CART Clinician</div>
-          <div class="exp-company">Heartland Alliance LTD/GTE · Ojo & Badagry, Lagos</div>
-          <div class="exp-tenure">2019 — 2021</div>
-          <div class="exp-desc">Designed innovative operational strategies that improved ART Retention, eHR adoption, and client tracking across two zones.</div>
-          <div class="exp-highlights">
-            • Developed SOPs, job aids, and clinical guidelines<br>
-            • Managed services across waterway-accessible communities<br>
-            • Aligned operations with National and International best practices
-          </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2018 – 2019</div>
+          <span class="timeline-role">Resident Medical Officer</span>
+          <span class="timeline-badge clinical">Clinical</span>
+          <div class="timeline-company">St. Peter's Catholic Church Hospital · Abaji, FCT</div>
+          <ul class="timeline-bullets">
+            <li>Performed <strong>1,500+ hours</strong> of clinical ultrasound scanning and surgical procedures in a resource-limited environment</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2016 – 2017</div>
+          <span class="timeline-role">Chief Medical House-Officer (Honorary)</span>
+          <span class="timeline-badge leadership">Leadership</span>
+          <div class="timeline-company">Kubwa General Hospital · Kubwa, FCT-Abuja</div>
+          <ul class="timeline-bullets">
+            <li>Coordinated all doctors' rosters, CME planning, and hospital-wide information dissemination — demonstrating <strong>cross-functional team coordination</strong> and programme management</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2012 – 2015</div>
+          <span class="timeline-role">Emergency Medicine || GP Medical Officer || Physician-in-Training</span>
+          <span class="timeline-badge clinical">Clinical</span>
+          <div class="timeline-company">Lagos University Teaching Hospital · Lagos</div>
+          <ul class="timeline-bullets">
+            <li>Clinical care, research, and systems improvement in a high-volume tertiary emergency department</li>
+            <li>Patient safety & quality metrics</li>
+            <li>Team leadership & training</li>
+            <li>Protocol development & standardization</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2014</div>
+          <span class="timeline-role">Survey Research Assistant — Ebola Emergency Response</span>
+          <span class="timeline-badge research">Research</span>
+          <div class="timeline-company">Nigeria Centre for Disease Control (NCDC) · Lagos</div>
+          <ul class="timeline-bullets">
+            <li>Deployed by the NCDC Ebola Emergency Operations Centre to conduct <strong>community-level surveys</strong> during the 2014 Ebola outbreak in Nigeria</li>
+          </ul>
         </div>
       </div>
     </section>
