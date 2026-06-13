@@ -344,6 +344,17 @@
       z-index: 0;
       animation: heroRingSpin 40s linear infinite;
     }
+    .hero-photo-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0deg, rgba(0, 212, 170, 1) 40deg, rgba(0, 212, 170, 0.3) 60deg, transparent 90deg, transparent 360deg);
+      -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 9px), #000 calc(100% - 7px), #000 100%, transparent 100%);
+      mask: radial-gradient(closest-side, transparent calc(100% - 9px), #000 calc(100% - 7px), #000 100%, transparent 100%);
+      filter: blur(4px) drop-shadow(0 0 6px rgba(0, 212, 170, 0.8));
+      animation: heroRingSpin 6s linear infinite;
+    }
     @keyframes heroRingSpin {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
