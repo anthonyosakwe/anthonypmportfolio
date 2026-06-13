@@ -539,15 +539,14 @@
     /* CAREER TIMELINE */
     .career-timeline {
       position: relative;
-      max-width: 820px;
+      max-width: 900px;
       margin: 0 auto;
-      padding-left: 32px;
     }
 
     .career-timeline::before {
       content: '';
       position: absolute;
-      left: 5px;
+      left: 110px;
       top: 8px;
       bottom: 8px;
       width: 2px;
@@ -556,6 +555,7 @@
 
     .timeline-item {
       position: relative;
+      padding-left: 142px;
       padding-bottom: 40px;
     }
 
@@ -565,7 +565,7 @@
 
     .timeline-dot {
       position: absolute;
-      left: -32px;
+      left: 105px;
       top: 6px;
       width: 12px;
       height: 12px;
@@ -575,12 +575,32 @@
     }
 
     .timeline-year {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 92px;
+      text-align: right;
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       color: var(--accent);
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
     }
+
+    /* Bullet markers + dot inherit the badge colour per category */
+    .timeline-item.clinical    .timeline-bullets li::marker { color: var(--accent); }
+    .timeline-item.quality     .timeline-bullets li::marker { color: var(--accent2); }
+    .timeline-item.programme   .timeline-bullets li::marker { color: #f59e0b; }
+    .timeline-item.leadership  .timeline-bullets li::marker { color: #a855f7; }
+    .timeline-item.research    .timeline-bullets li::marker { color: #ec4899; }
+    .timeline-item.building    .timeline-bullets li::marker { color: var(--accent); }
+
+    .timeline-item.clinical    .timeline-dot { background: var(--accent); }
+    .timeline-item.quality     .timeline-dot { background: var(--accent2); }
+    .timeline-item.programme   .timeline-dot { background: #f59e0b; }
+    .timeline-item.leadership  .timeline-dot { background: #a855f7; }
+    .timeline-item.research    .timeline-dot { background: #ec4899; }
+    .timeline-item.building    .timeline-dot { background: var(--accent); }
 
     .timeline-role {
       font-size: 18px;
@@ -1094,6 +1114,16 @@
       .projects-grid { grid-template-columns: 1fr; }
       .credentials-grid { grid-template-columns: 1fr; }
       .contact-box { padding: 24px; }
+
+      .career-timeline::before { left: 5px; }
+      .timeline-item { padding-left: 28px; }
+      .timeline-dot { left: 0; }
+      .timeline-year {
+        position: static;
+        width: auto;
+        text-align: left;
+        margin-bottom: 8px;
+      }
     }
     .project-date {
       font-family: 'JetBrains Mono', monospace;
@@ -1506,7 +1536,7 @@
       <h2 class="section-title">The path that built my <strong>product instincts</strong></h2>
 
       <div class="career-timeline">
-        <div class="timeline-item">
+        <div class="timeline-item building">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2026 – In Progress</div>
           <span class="timeline-role">Hospital CEO/Strategic Clinical Lead & Managing Partner</span>
@@ -1520,7 +1550,7 @@
           </ul>
         </div>
 
-        <div class="timeline-item">
+        <div class="timeline-item clinical">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2023 – Present</div>
           <span class="timeline-role">Clinical Product Manager || Medical Officer</span>
@@ -1534,7 +1564,7 @@
           </ul>
         </div>
 
-        <div class="timeline-item">
+        <div class="timeline-item quality">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2021 – 2022</div>
           <span class="timeline-role">Lead Clinician · Clinical Quality Assurance Focal Person</span>
@@ -1548,7 +1578,7 @@
           </ul>
         </div>
 
-        <div class="timeline-item">
+        <div class="timeline-item programme">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2019 – 2021</div>
           <span class="timeline-role">Zonal CART Clinician</span>
@@ -1560,7 +1590,7 @@
           </ul>
         </div>
 
-        <div class="timeline-item">
+        <div class="timeline-item clinical">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2018 – 2019</div>
           <span class="timeline-role">Resident Medical Officer</span>
@@ -1571,7 +1601,7 @@
           </ul>
         </div>
 
-        <div class="timeline-item">
+        <div class="timeline-item leadership">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2016 – 2017</div>
           <span class="timeline-role">Chief Medical House-Officer (Honorary)</span>
@@ -1582,7 +1612,7 @@
           </ul>
         </div>
 
-        <div class="timeline-item">
+        <div class="timeline-item clinical">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2012 – 2015</div>
           <span class="timeline-role">Emergency Medicine || GP Medical Officer || Physician-in-Training</span>
@@ -1596,7 +1626,7 @@
           </ul>
         </div>
 
-        <div class="timeline-item">
+        <div class="timeline-item research">
           <div class="timeline-dot"></div>
           <div class="timeline-year">2014</div>
           <span class="timeline-role">Survey Research Assistant — Ebola Emergency Response</span>
