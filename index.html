@@ -571,7 +571,6 @@
       height: 12px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 0 4px var(--card);
     }
 
     .timeline-year {
@@ -587,20 +586,28 @@
       line-height: 1.4;
     }
 
-    /* Bullet markers + dot inherit the badge colour per category */
-    .timeline-item.clinical    .timeline-bullets li::marker { color: var(--accent); }
-    .timeline-item.quality     .timeline-bullets li::marker { color: var(--accent2); }
-    .timeline-item.programme   .timeline-bullets li::marker { color: #f59e0b; }
-    .timeline-item.leadership  .timeline-bullets li::marker { color: #a855f7; }
-    .timeline-item.research    .timeline-bullets li::marker { color: #ec4899; }
-    .timeline-item.building    .timeline-bullets li::marker { color: var(--accent); }
-
-    .timeline-item.clinical    .timeline-dot { background: var(--accent); }
-    .timeline-item.quality     .timeline-dot { background: var(--accent2); }
-    .timeline-item.programme   .timeline-dot { background: #f59e0b; }
-    .timeline-item.leadership  .timeline-dot { background: #a855f7; }
-    .timeline-item.research    .timeline-dot { background: #ec4899; }
-    .timeline-item.building    .timeline-dot { background: var(--accent); }
+    /* Timeline dots carry the badge colour per category, with a soft glow halo */
+    .timeline-item.clinical   .timeline-dot,
+    .timeline-item.building   .timeline-dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--card), 0 0 0 6px rgba(0,212,170,0.25), 0 0 10px 3px rgba(0,212,170,0.6);
+    }
+    .timeline-item.quality    .timeline-dot {
+      background: var(--accent2);
+      box-shadow: 0 0 0 3px var(--card), 0 0 0 6px rgba(14,165,233,0.25), 0 0 10px 3px rgba(14,165,233,0.6);
+    }
+    .timeline-item.programme  .timeline-dot {
+      background: #f59e0b;
+      box-shadow: 0 0 0 3px var(--card), 0 0 0 6px rgba(245,158,11,0.25), 0 0 10px 3px rgba(245,158,11,0.6);
+    }
+    .timeline-item.leadership .timeline-dot {
+      background: #a855f7;
+      box-shadow: 0 0 0 3px var(--card), 0 0 0 6px rgba(168,85,247,0.25), 0 0 10px 3px rgba(168,85,247,0.6);
+    }
+    .timeline-item.research   .timeline-dot {
+      background: #ec4899;
+      box-shadow: 0 0 0 3px var(--card), 0 0 0 6px rgba(236,72,153,0.25), 0 0 10px 3px rgba(236,72,153,0.6);
+    }
 
     .timeline-role {
       font-size: 18px;
@@ -638,12 +645,24 @@
       font-size: 13px;
       line-height: 1.8;
       color: var(--text);
-      padding-left: 20px;
+      list-style: none;
+      padding-left: 0;
       margin: 0;
     }
 
     .timeline-bullets li {
+      position: relative;
+      padding-left: 22px;
       margin-bottom: 6px;
+    }
+
+    .timeline-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 13px;
     }
 
     .timeline-bullets strong {
@@ -1115,15 +1134,10 @@
       .credentials-grid { grid-template-columns: 1fr; }
       .contact-box { padding: 24px; }
 
-      .career-timeline::before { left: 5px; }
-      .timeline-item { padding-left: 28px; }
-      .timeline-dot { left: 0; }
-      .timeline-year {
-        position: static;
-        width: auto;
-        text-align: left;
-        margin-bottom: 8px;
-      }
+      .career-timeline::before { left: 72px; }
+      .timeline-item { padding-left: 92px; }
+      .timeline-dot { left: 67px; }
+      .timeline-year { width: 58px; font-size: 11px; }
     }
     .project-date {
       font-family: 'JetBrains Mono', monospace;
