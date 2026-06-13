@@ -734,15 +734,13 @@
       position: relative;
     }
 
-    .philosophy-card::before {
-      content: '\201C';
+    .philosophy-quote-mark {
       position: absolute;
-      top: 28px;
-      left: 36px;
-      font-size: 150px;
-      color: var(--accent);
-      font-family: 'Cormorant Garamond', serif;
-      line-height: 0.8;
+      top: 26px;
+      left: 32px;
+      width: 64px;
+      height: 48px;
+      fill: var(--accent);
       opacity: 0.3;
     }
 
@@ -1224,6 +1222,10 @@
     <!-- MY PHILOSOPHY -->
     <section class="philosophy-section">
       <div class="philosophy-card">
+        <svg class="philosophy-quote-mark" viewBox="0 0 120 90" aria-hidden="true">
+          <path d="M18 90 C2 90 0 70 0 55 C0 30 16 8 44 0 L48 14 C32 22 26 32 28 42 C40 40 52 50 52 66 C52 80 40 90 30 90 Z"/>
+          <path d="M82 90 C66 90 64 70 64 55 C64 30 80 8 108 0 L112 14 C96 22 90 32 92 42 C104 40 116 50 116 66 C116 80 104 90 94 90 Z"/>
+        </svg>
         <span class="philosophy-label">My Philosophy</span>
         <p class="philosophy-quote">
           I believe health systems should work <em>for</em> patients and clinicians — not against them. Every product I build starts at the bedside, where the gap between <em>how things are</em> and <em>how they should be</em> becomes painfully clear.
