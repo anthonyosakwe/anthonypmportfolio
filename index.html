@@ -16,6 +16,12 @@
       --text:    #e8f0f8;
       --muted:   #6b8aaa;
       --card:    #0b1629;
+      --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.30);
+      --shadow-md: 0 10px 30px -12px rgba(0,0,0,0.55);
+      --shadow-lg: 0 24px 60px -18px rgba(0,0,0,0.65);
+      --chip-bg: rgba(0,212,170,0.10);
+      --chip-border: rgba(0,212,170,0.28);
     }
 
     html[data-theme="light"] {
@@ -27,6 +33,11 @@
       --text:    #1a2332;
       --muted:   #6b7280;
       --card:    #ffffff;
+      --shadow-sm: 0 1px 2px rgba(16,42,67,0.06);
+      --shadow-md: 0 12px 30px -14px rgba(16,42,67,0.18);
+      --shadow-lg: 0 26px 60px -20px rgba(16,42,67,0.22);
+      --chip-bg: rgba(0,168,120,0.10);
+      --chip-border: rgba(0,168,120,0.30);
     }
 
     html[data-theme="light"] body::before {
@@ -116,6 +127,34 @@
 
     .page { position: relative; z-index: 1; }
 
+    /* KEYBOARD ACCESSIBILITY — visible focus ring on all interactive elements */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ICON CHIP — tinted rounded container so glyphs read as designed marks, not raw emoji */
+    .icon-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
+    }
+    .icon-chip.chip-sm { width: 40px; height: 40px; border-radius: 10px; font-size: 20px; margin-bottom: 12px; }
+
     /* NAVIGATION */
     nav {
       position: fixed; top:0; left:0; right:0; z-index:100;
@@ -136,19 +175,33 @@
       align-items: center;
     }
 
-    .nav-links a { 
-      font-size:11px; 
-      font-weight:600; 
-      letter-spacing:0.06em; 
-      text-transform:uppercase; 
-      color:var(--muted); 
-      text-decoration:none; 
+    .nav-links a {
+      position: relative;
+      font-size:11px;
+      font-weight:600;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+      text-decoration:none;
       transition:color 0.2s;
       white-space: nowrap;
     }
 
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 100%;
+      bottom: -4px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: right 0.35s var(--ease);
+    }
+
     .nav-links a:hover { color:var(--accent); }
+    .nav-links a:hover::after { right: 0; }
     .nav-links a.active { color:var(--accent); }
+    .nav-links a.active::after { right: 0; }
 
     .theme-toggle {
       background: none;
@@ -267,12 +320,17 @@
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
       line-height: 1;
+      letter-spacing: -0.015em;
       margin-bottom: 24px;
     }
 
-    .hero-name em { 
-      font-style: italic; 
-      color: var(--accent);
+    .hero-name em {
+      font-style: italic;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--accent); /* fallback */
     }
 
     .hero-description {
@@ -451,12 +509,23 @@
     }
 
     .section-label {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 12px;
-      display: block;
+      margin-bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.6;
     }
 
     .section-title {
@@ -481,22 +550,38 @@
     .outcome-card {
       padding: 28px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       background: rgba(11,22,41,0.4);
-      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.5s var(--ease), border-color 0.4s var(--ease), box-shadow 0.5s var(--ease), background 0.4s var(--ease);
     }
 
     .outcome-card:hover {
       border-color: var(--accent);
       background: rgba(11,22,41,0.6);
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
     }
 
+    .outcome-card:hover .icon-chip { transform: scale(1.08) rotate(-3deg); border-color: var(--accent); }
+
     .outcome-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
     }
+
+    .outcome-card:hover .outcome-icon { transform: scale(1.08) rotate(-3deg); border-color: var(--accent); }
 
     .outcome-number {
       font-size: 36px;
@@ -710,17 +795,21 @@
 
     .project-card {
       padding: 32px;
-      border: 2px solid var(--accent);
-      border-radius: 8px;
+      border: 1px solid var(--chip-border);
+      border-radius: 12px;
       background: rgba(0,212,170,0.05);
-      transition: all 0.3s;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.5s var(--ease), border-color 0.4s var(--ease), box-shadow 0.5s var(--ease), background 0.4s var(--ease);
     }
 
     .project-card:hover {
       background: rgba(0,212,170,0.1);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,212,170,0.15);
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
     }
+
+    .project-card:hover .icon-chip { transform: scale(1.08) rotate(-3deg); border-color: var(--accent); }
 
     .project-card a:hover .project-title {
       color: var(--accent);
@@ -810,9 +899,22 @@
     }
 
     .project-icon {
-      font-size: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      font-size: 24px;
+      line-height: 1;
       margin-bottom: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
     }
+
+    .project-card:hover .project-icon { transform: scale(1.08) rotate(-3deg); border-color: var(--accent); }
 
     .project-title {
       font-size: 20px;
@@ -902,6 +1004,49 @@
       font-weight: 500;
     }
 
+    /* VENTURE CARDS (Building section) — themed, with hover + reveal parity */
+    .ventures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .venture-card {
+      padding: 28px;
+      border: 1px solid var(--chip-border);
+      border-radius: 12px;
+      background: rgba(0,212,170,0.05);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.5s var(--ease), border-color 0.4s var(--ease), box-shadow 0.5s var(--ease), background 0.4s var(--ease);
+    }
+    .venture-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      background: rgba(0,212,170,0.1);
+      box-shadow: var(--shadow-lg);
+    }
+    .venture-card:hover .icon-chip { transform: scale(1.08) rotate(-3deg); border-color: var(--accent); }
+    .venture-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .venture-phase {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .venture-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .venture-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
     /* CREDENTIALS */
     .credentials-grid {
       display: grid;
@@ -912,14 +1057,34 @@
     .credential-card {
       padding: 24px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       background: rgba(11,22,41,0.5);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.5s var(--ease), border-color 0.4s var(--ease), box-shadow 0.5s var(--ease);
+    }
+
+    .credential-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--chip-border);
+      box-shadow: var(--shadow-md);
     }
 
     .credential-icon {
-      font-size: 28px;
-      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      font-size: 20px;
+      line-height: 1;
+      margin-bottom: 14px;
+      transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
     }
+
+    .credential-card:hover .credential-icon { transform: scale(1.08); border-color: var(--accent); }
 
     .credential-title {
       font-size: 14px;
@@ -1461,37 +1626,37 @@
       <span class="section-label">Building</span>
       <h2 class="section-title">Product Ventures & <strong>Strategic Initiatives</strong></h2>
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
-        <div style="padding:28px; border:2px solid var(--accent); border-radius:8px; background:rgba(0,212,170,0.05);">
-          <div style="font-size:40px; margin-bottom:12px;">🚀</div>
-          <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:6px;">ClinStart</div>
-          <div style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:14px;">Product Prototype · In Development</div>
-          <div style="font-size:13px; line-height:1.6; color:var(--muted); margin-bottom:16px;">Digital onboarding & workflow guidance platform for healthcare professionals. Structured task guidance, hospital-specific protocols, and real-time support systems reducing onboarding errors.</div>
-          <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <span style="display:inline-block; padding:4px 10px; background:rgba(0,212,170,0.15); border:1px solid rgba(0,212,170,0.3); border-radius:12px; font-size:11px; color:var(--accent); font-weight:500;">Digital Health</span>
-            <span style="display:inline-block; padding:4px 10px; background:rgba(0,212,170,0.15); border:1px solid rgba(0,212,170,0.3); border-radius:12px; font-size:11px; color:var(--accent); font-weight:500;">Product Strategy</span>
+      <div class="ventures-grid">
+        <div class="venture-card">
+          <div class="icon-chip">🚀</div>
+          <div class="venture-title">ClinStart</div>
+          <div class="venture-phase">Product Prototype · In Development</div>
+          <div class="venture-desc">Digital onboarding & workflow guidance platform for healthcare professionals. Structured task guidance, hospital-specific protocols, and real-time support systems reducing onboarding errors.</div>
+          <div class="venture-tags">
+            <span class="tag">Digital Health</span>
+            <span class="tag">Product Strategy</span>
           </div>
         </div>
 
-        <div style="padding:28px; border:2px solid var(--accent); border-radius:8px; background:rgba(0,212,170,0.05);">
-          <div style="font-size:40px; margin-bottom:12px;">💰</div>
-          <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:6px;">Healthcare Finance Mastery (HFIM)</div>
-          <div style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:14px;">Course Series · Developing</div>
-          <div style="font-size:13px; line-height:1.6; color:var(--muted); margin-bottom:16px;">Comprehensive educational series bridging clinical medicine and healthcare business. Covers hospital financial management, strategic operations, and sustainable healthcare delivery models.</div>
-          <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <span style="display:inline-block; padding:4px 10px; background:rgba(0,212,170,0.15); border:1px solid rgba(0,212,170,0.3); border-radius:12px; font-size:11px; color:var(--accent); font-weight:500;">Education</span>
-            <span style="display:inline-block; padding:4px 10px; background:rgba(0,212,170,0.15); border:1px solid rgba(0,212,170,0.3); border-radius:12px; font-size:11px; color:var(--accent); font-weight:500;">Healthcare Finance</span>
+        <div class="venture-card">
+          <div class="icon-chip">💰</div>
+          <div class="venture-title">Healthcare Finance Mastery (HFIM)</div>
+          <div class="venture-phase">Course Series · Developing</div>
+          <div class="venture-desc">Comprehensive educational series bridging clinical medicine and healthcare business. Covers hospital financial management, strategic operations, and sustainable healthcare delivery models.</div>
+          <div class="venture-tags">
+            <span class="tag">Education</span>
+            <span class="tag">Healthcare Finance</span>
           </div>
         </div>
 
-        <div style="padding:28px; border:2px solid var(--accent); border-radius:8px; background:rgba(0,212,170,0.05);">
-          <div style="font-size:40px; margin-bottom:12px;">🏥</div>
-          <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:6px;">ABC Specialist Hospital</div>
-          <div style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:14px;">Healthcare Venture · Foundation Phase</div>
-          <div style="font-size:13px; line-height:1.6; color:var(--muted); margin-bottom:16px;">Modern specialist hospital designed for resource-constrained environments. Focus on clinical excellence, sustainable operations, and digital-first healthcare delivery.</div>
-          <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <span style="display:inline-block; padding:4px 10px; background:rgba(0,212,170,0.15); border:1px solid rgba(0,212,170,0.3); border-radius:12px; font-size:11px; color:var(--accent); font-weight:500;">Healthcare Operations</span>
-            <span style="display:inline-block; padding:4px 10px; background:rgba(0,212,170,0.15); border:1px solid rgba(0,212,170,0.3); border-radius:12px; font-size:11px; color:var(--accent); font-weight:500;">Business Development</span>
+        <div class="venture-card">
+          <div class="icon-chip">🏥</div>
+          <div class="venture-title">ABC Specialist Hospital</div>
+          <div class="venture-phase">Healthcare Venture · Foundation Phase</div>
+          <div class="venture-desc">Modern specialist hospital designed for resource-constrained environments. Focus on clinical excellence, sustainable operations, and digital-first healthcare delivery.</div>
+          <div class="venture-tags">
+            <span class="tag">Healthcare Operations</span>
+            <span class="tag">Business Development</span>
           </div>
         </div>
       </div>
@@ -1971,7 +2136,7 @@
 
     // SCROLL-TRIGGERED REVEALS
     (function () {
-      const revealSelector = '.section-title, .outcome-card, .project-card, .credential-card, .timeline-item, .skill-category';
+      const revealSelector = '.section-title, .outcome-card, .project-card, .venture-card, .credential-card, .timeline-item, .skill-category';
       const revealEls = document.querySelectorAll(revealSelector);
 
       revealEls.forEach((el) => {
